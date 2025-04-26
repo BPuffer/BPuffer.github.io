@@ -1,0 +1,181 @@
+import re
+import xml.etree.ElementTree as etree
+from typing import Any
+
+import markdown
+from markdown import Extension
+from markdown.inlinepatterns import InlineProcessor
+from markdown.preprocessors import Preprocessor
+
+
+# region LaTeX格式扩展
+
+def get_latex_html(latex: str, inline: bool) -> str | etree.Element:
+    latex = latex.replace('&', '&amp;')
+    latex = latex.replace('<', '&lt;')
+    latex = latex.replace('>', '&gt;')
+    latex = latex.replace('"', '&quot;')
+
+    if inline:  # 需要返回一个元素类型，<div class="latex-inline" formula="{latex}"></div>
+        el = etree.Element('span')
+        el.set('class', 'latex-inline')
+        el.set('formula', latex)
+        return el
+    return f'<div class="latex">{latex}</div>'
+
+
+# 主扩展
+class LatexBlockExtension(Extension):
+    def __init__(self, **kwargs):
+        self.config = {}
+        super().__init__(**kwargs)
+
+    def extendMarkdown(self, md):
+        LATEX_INLINE_RE = r'\$(.+?)\$'
+        md.registerExtension(self)
+        md.preprocessors.register(LatexBlockPreprocessor(md, self.getConfigs()), 'latex_block', 1.07)
+        md.inlinePatterns.register(LatexInlineProcessor(LATEX_INLINE_RE), 'latex_inline', 1.08)
+
+
+# 处理行间公式：$$formula$$ 和 \[formula\]
+class LatexBlockPreprocessor(Preprocessor):
+    LATEX_RE = re.compile(
+        r'(\$\$|\\\[) *\n(?P<math>.+?) *\n*(\$\$|\\]) *',
+        re.DOTALL
+    )
+
+    def __init__(self, md, config: dict[str, Any]):
+        super().__init__(md)
+        self.config = config
+
+    def run(self, lines: list[str]) -> list[str]:
+        text = "\n".join(lines)
+        index = 0
+        while 1:
+            m = self.LATEX_RE.search(text, index)
+            if m:
+                code = get_latex_html(m.group('math'), False)
+                placeholder = self.md.htmlStash.store(code)
+                text = f'{text[:m.start()]}\n{placeholder}\n{text[m.end():]}'
+                index = m.start() + 1 + len(placeholder)
+            else:
+                break
+        return text.split("\n")
+
+
+# 处理行内公式：$formula$
+class LatexInlineProcessor(InlineProcessor):
+    def __init__(self, pattern):
+        super().__init__(pattern)
+
+    def handleMatch(self, m, data):
+        el = get_latex_html(m.group(1), True)
+        return el, m.start(0), m.end(0)
+
+
+def split_size_unit(size_str):
+    #  用于分离HTML大小单位字符串为数值和单位两部分
+    for index in range(len(size_str)):
+        if not (size_str[index].isdigit() or size_str[index] == '.' or size_str[index] == '-'):
+            return float(size_str[:index]), size_str[index:]
+    return float(size_str), ""
+
+#
+# # 将html文本中的latex标签转换为svg
+# async def latex2svg4html(html, latex_size_rate=2, latex_inline_size=2):
+#     soup = BeautifulSoup(html, 'html.parser')
+#
+#     latex_tags = soup.find_all('div', class_='latex')
+#     for latex_tag in latex_tags:
+#         formula = latex_tag.get('formula')
+#         if formula:
+#             url = f'https://math.vercel.app/?from={quote(formula)}'
+#             response = requests.get(url)
+#             if response.status_code == 200:
+#                 svg = response.text
+#
+#                 svg_soup = BeautifulSoup(svg, 'html.parser')
+#                 height_value, height_unit = split_size_unit(svg_soup.find('svg').get('height'))
+#                 width_value, width_unit = split_size_unit(svg_soup.find('svg').get('width'))
+#                 height_value *= latex_size_rate
+#                 width_value *= latex_size_rate
+#                 svg_soup.find('svg').attrs['height'] = f'{height_value}{height_unit}'
+#                 svg_soup.find('svg').attrs['width'] = f'{width_value}{width_unit}'
+#
+#                 div_tag = soup.new_tag('div', **{'class': 'latex-img'})
+#                 div_tag.append(svg_soup)
+#                 latex_tag.replace_with(div_tag)
+#
+#     latexinline_tags = soup.find_all('span', class_='latex-inline')
+#     for latex_tag in latexinline_tags:
+#         formula = latex_tag.get('formula')
+#         if formula:
+#             url = f'https://math.vercel.app/?inline={quote(formula)}'
+#             response = requests.get(url)
+#             if response.status_code == 200:
+#                 svg = response.text
+#
+#                 svg_soup = BeautifulSoup(svg, 'html.parser')
+#                 height_value, height_unit = split_size_unit(svg_soup.find('svg').get('height'))
+#                 width_value, width_unit = split_size_unit(svg_soup.find('svg').get('width'))
+#                 height_value *= latex_inline_size
+#                 width_value *= latex_inline_size
+#                 svg_soup.find('svg').attrs['height'] = f'{height_value}{height_unit}'
+#                 svg_soup.find('svg').attrs['width'] = f'{width_value}{width_unit}'
+#
+#                 div_tag = soup.new_tag('span', **{'class': 'latex-inline-img'})
+#                 div_tag.append(svg_soup)
+#                 latex_tag.replace_with(div_tag)
+#
+#     return str(soup)
+#
+
+#endregion LaTeX格式扩展
+
+
+extensions = [
+    'markdown.extensions.tables',  # 表格
+    'markdown.extensions.codehilite',  # 代码高亮
+    'markdown.extensions.fenced_code',  # 代码块
+    'markdown.extensions.smarty',  # 杂项
+    'markdown.extensions.toc',  # 目录
+    LatexBlockExtension(),  # latex 支持
+]
+
+html_model = """
+<!DOCTYPE html>
+<!--This file is automatically generated by build.py.
+    Do not modify this file manually.
+-->
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+    <link rel="stylesheet" href="{style}">
+</head>
+<body>
+<div class="container">
+{content}
+</div>
+</body>
+</html>
+"""
+
+style = "css/style_0.css"
+
+if __name__ == '__main__':
+    import glob
+    files = './src/*.md'
+    output = './post/{filename}.html'
+    for md_file in glob.glob(files):
+        with open(md_file, 'r', encoding='utf-8') as f:
+            md = f.read()
+        post = markdown.markdown(md, extensions=extensions)
+        html = html_model.format(
+            title=md_file.split('\\')[-1].split('.')[0],
+            style=style,
+            content=post
+        )
+        with open(output.format(filename=md_file.split('\\')[-1].split('.')[0]), 'w', encoding='utf-8') as f:
+            f.write(html)
