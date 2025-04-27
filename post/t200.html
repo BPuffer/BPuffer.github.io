@@ -14,9 +14,13 @@
 <div class="container">
 <h1 id="_1">面向数学建模编程</h1>
 <h2 id="_2">前言</h2>
-<p>首先，面向数学建模从零开始学习编程语言这件事的代价就是极高的。下面是我自行量化的学习项目表，可根据自身情况自行选修。</p>
+<p>本教程结合个人经验，为时间有限的准编程手们提供尽可能时间上最有效的教程。如果你时间充足希望系统学习，你可以看看<a href="/t199">我是怎么学习的</a>。</p>
+<p><strong>[警告]</strong> 本文包含大量主观内容，可以提供有限的方向参考，但切勿总是奉为圭臬。</p>
+<h2 id="_3">开始</h2>
+<p>首先，面向数学建模从零完整开始学习编程语言这件事的代价就是极高的。更好的方案是学习语言的基本数据结构和语法，然后尝试“理解”编程语言。</p>
+<p>下面是我自行量化的学习项目表，可根据自身情况自行选修。</p>
 <p>对于Python、MATLAB、北太天元，选择一项深入学习，否则适合你的题型面将非常少。SPSS最好只作为初级工具使用。</p>
-<p>对于新兴的国产分析软件北太天元(baltamatica)，我的态度是十分支持，一方面语言特性和MATLAB非常相似，既避免了被MATLAB卡脖子又有国内开发者生态。北太天元兼容MATLAB基础语法，但其工具箱生态仍在发展中，复杂问题可能需要自行实现算法。</p>
+<p>对于新兴的国产分析软件<a href="https://www.baltamatica.com/download.html">北太天元</a>，我的态度是十分支持。北太天元语法高度兼容MATLAB语法，既避免了被MATLAB卡脖子又有国内开发者生态。但其工具箱生态仍在发展中，复杂问题可能需要自行实现算法，要做好转回MATLAB的准备。</p>
 <table>
 <thead>
 <tr>
@@ -73,14 +77,14 @@
 <td>算法</td>
 <td>★★☆☆☆[做综合题时]</td>
 <td>★★★★★</td>
-<td>一些综合题可能需要编程算法解决</td>
+<td>一些综合题可能需要编程算法解决<br />但初学者可以先跳过这类题</td>
 </tr>
 </tbody>
 </table>
 <h2 id="python">面向数学建模的Python学习路线</h2>
 <h3 id="1">1. 尽快提升熟练度</h3>
-<p>对于Python初学者，如果没有时间可以不学面向对象(就是类、鸭子类型那一堆乱七八糟的)，但内置数据类型的处理一定要熟练运用。比如这种技术上不难但实操起来十分吃<strong>熟练度</strong>的问题：</p>
-<p>将一个布尔值列表<code>[False,False,True,True,False,False]</code>转换为时间区间格式。</p>
+<p>对于Python初学者，如果没有时间可以不学面向对象(就是类、继承那一堆乱七八糟的)，但内置数据类型的处理一定要熟练运用。比如这种技术上不难但实操起来十分吃<strong>熟练度</strong>的问题：</p>
+<h4 id="_4"><strong>将一个布尔值列表转换为时间区间格式</strong></h4>
 <div class="codehilite"><pre><span></span><code><span class="c1"># 输入</span>
 <span class="n">series</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
 <span class="c1"># 输出</span>
@@ -91,13 +95,16 @@
 <span class="p">}</span>
 </code></pre></div>
 
+<ul>
+<li>注意：新手面对这个问题可以使用暴力遍历，但老手可以使用numpy的向量化操作简化流程，具体步骤可以自行研究</li>
+</ul>
 <h3 id="2">2. 快速掌握报错信息和调试</h3>
-<p>学习过程中最好尽快掌握怎么看报错和PDB(breakpoint())的使用。</p>
+<p>学习过程中最好尽快掌握怎么看报错和PDB(<code>breakpoint()</code>)的使用。</p>
 <blockquote>
-<p>打个广告：我正在开发 kawaiitb 库，用于汉化甚至自定义python的报错信息，能参与测试、提议或者单纯想试用的可以联系我</p>
+<p>打个广告：我正在开发 <a href="#kawaiitb">kawaiitb</a> 库，用于汉化甚至自定义python的报错信息，能参与测试、提议或者单纯想试用的可以联系我</p>
 </blockquote>
 <p>其次要系统学习numpy,pandas和matplotlib三个库。其中numpy用于数据计算、pandas用于数据存储、matplotlib用于数据展示。这三个库不是终点，而是更多复杂的库（如sklearn高级数学模型、seaborn绘图等）的基础。</p>
-<p>最后是学会看代码的意图。哪怕是我正式比赛环境敲代码也不会一行行去敲，而是先想好我要做什么，再描述出来，最后让AI把我<strong>已经想好的逻辑</strong>以代码形式展现出来。这时一旦代码出了bug，我就需要理解它写出来的代码的意图是什么，理解不了就自己跑一遍。然后可以找到对应问题进行修正。</p>
+<p>最后是学会看<strong>代码的意图</strong>。哪怕是我正式比赛环境敲代码也不会一行行去敲，而是先想好我要做什么，再描述出来，最后让AI把我<strong>已经想好的逻辑</strong>以代码形式展现出来。这时一旦代码出了bug，我就需要理解它写出来的代码的意图是什么，理解不了就使用<strong>调试功能</strong>跑一遍。然后找到对应问题进行修正。</p>
 <h2 id="ai">使用AI进行编程</h2>
 <blockquote>
 <p>最后让AI把我<strong>已经想好的逻辑</strong>以代码形式展现出来。</p>
@@ -109,8 +116,10 @@
 <span class="o">...</span>
 <span class="n">X_data</span> <span class="o">=</span> <span class="o">...</span>
 <span class="n">X_std</span> <span class="o">=</span> <span class="o">...</span>
+</code></pre></div>
 
-<span class="c1"># AI生成的代码</span>
+<p>然后再让AI续写一个PCA分析。这样可以省去很多麻烦事比如问你数据在哪又问你是什么格式需不需要去重、标准化……</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># AI生成的代码</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -122,8 +131,71 @@
 <span class="n">principal_components</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_std</span><span class="p">)</span>
 </code></pre></div>
 
-<p>然后再让AI续写一个PCA分析。这样可以省去很多麻烦事比如问你数据在哪又问你是什么格式需不需要去重、标准化……</p>
-<h3 id="ai_1">AI给我的代码出现了一个问题</h3>
+<h3 id="1-ai">1. AI选型</h3>
+<p>众所周知、AI的智商有高有低，此处以多功能的<a href="https://www.doubao.com/chat/">豆包</a>和高智商的<a href="https://chat.deepseek.com/">DeepSeek</a>为例：</p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>选型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>螺线的长度怎么求</td>
+<td>豆包(熟知的已知结论)</td>
+</tr>
+<tr>
+<td>帮我翻译一下这个论文</td>
+<td>豆包(能够快速响应)</td>
+</tr>
+<tr>
+<td>推荐几个数据分析网站</td>
+<td>豆包(搜索能力)</td>
+</tr>
+<tr>
+<td>写一个去除前后缀的函数</td>
+<td>豆包(简单任务没必要浪费Deepseek时间)</td>
+</tr>
+<tr>
+<td>将这句话用论文表述出来</td>
+<td>Deepseek(语言表述多样化)</td>
+</tr>
+<tr>
+<td>构建基于xxx的微分方程</td>
+<td>Deepseek(高强度场景理解)</td>
+</tr>
+<tr>
+<td>这段论文表述有没有什么致命错误</td>
+<td>Deepseek(思维链能够细致分析)</td>
+</tr>
+<tr>
+<td>令tf模型每训练一个批次缓存一个副本</td>
+<td>Deepseek(单纯的智商高)</td>
+</tr>
+<tr>
+<td>把这个一万行的文件里的异常值找出来</td>
+<td>不适合AI(大量数字中AI很可能忽视信息)<br />可以改为令其写python代码找出异常值</td>
+</tr>
+<tr>
+<td>帮我画一个这个数学模型的结构示意图</td>
+<td>不适合绘图AI(绘图AI偏向艺术领域)<br />可以改为令其写代码后在线生成如 <a href="mermaid.live">mermaid.live</a></td>
+</tr>
+<tr>
+<td>帮我解这个复杂的微分方程</td>
+<td>不适合AI(AI很容易在长竖式中出错)<br />可以使用在线求解工具如 <a href="https://www.wolframalpha.com">W|A</a></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>多功能AI可以类比国内市面上的各种AI比如混元、文心一言等等。功能都是较为完善的。</p>
+</li>
+<li>
+<p>高智商AI中Deepseek是最方便的，替代有OpenAI的o1-mini, o1, o3-mini等。不可否认o3虽然非常厉害，但每日限制使其难以适应三天数模的节奏，当然一些特别棘手的问题问一下也是可以的。</p>
+</li>
+</ul>
+<h3 id="2-ai">2. AI给我的代码出现了一个问题</h3>
 <p>别急，AI代码的问题无非以下几种：</p>
 <p>1.<strong>你给它的数据和描述不对版</strong></p>
 <p>有时候它不检查是因为太信任你。额外检查是因为不信任你。如果你想让他发挥的更自由，你就说<code>你是xx领域专家，请帮我……</code>，否则如果你很清楚接下来你想做什么，你就说<code>你是听话的python助手，现在……</code>。</p>
@@ -131,7 +203,7 @@
 <p>AI的命名通常是十分有意义的。但这有时候会让它们造成依赖，比如他们排序之后错误地将前面已经排序好的列名<code>sorted_inputs = ['IN1','IN2','IN3']</code>当作数据<code>[4,3,2]</code>，尝试使用数据定位列名，结果就会造成类型不匹配或者找不到(有时会造成<code>None</code>的出现)的情况。这时候就是代码意图理解和python学习成果展现的时候了。</p>
 <p>3.<strong>多字缺字</strong></p>
 <p>目前我只在deepseek-v3上见过这样的情况。对于ai来说这是很奇异的，但一般来说这种错误只要找到它缺了哪个括号、多了哪个括号处理一下就行了(大部分都是多了)。</p>
-<h3 id="_3">人机协同</h3>
+<h3 id="3">3. 人机协同</h3>
 <table>
 <thead>
 <tr>
@@ -143,22 +215,22 @@
 <tbody>
 <tr>
 <td>你应该知道的</td>
-<td>使用python能做哪些事<br />e.g. <br />使用python能够进行Z-score数据标准化</td>
-<td>你的数据长什么样<br />e.g. <br />表格的输入列为[&ldquo;IN1&rdquo;,&rdquo;IN2&rdquo;,&hellip;]</td>
+<td>使用python能做哪些事<br />e.g. <br />使用python当然能够进行数据清洗</td>
+<td>你的题目长什么样<br />e.g. <br />表格的输入列为[&ldquo;IN1&rdquo;,&rdquo;IN2&rdquo;,&hellip;]</td>
 </tr>
 <tr>
 <td>你可能不知道的</td>
-<td>某些库具体代码上怎么调用<br />e.g.<br />从sklearn中引入线性回归模型的具体方法</td>
+<td>某些库代码上具体怎么写<br />e.g.<br />从sklearn中引入支持向量机回归的具体方法</td>
 <td>最终的问题<br />e.g.<br />评委想看到论文的研究方向</td>
 </tr>
 </tbody>
 </table>
-<h2 id="_4">链接</h2>
+<h2 id="_5">链接</h2>
 <p><strong>[通用]</strong> 非常全面的Python图网站 - <a href="https://python-graph-gallery.com/">Python Graph Gallery</a></p>
 <p><strong>[离散]</strong> 大量免费的数据集和模型 - <a href="https://www.kaggle.com/">Kaggle</a></p>
 <p><strong>[连续]</strong> 让AI帮你解方程 - <a href="https://www.wolframalpha.com/">Wolfram|Alpha</a></p>
 <p><strong>[几何]</strong> 高效画图，设置动点 - <a href="https://www.geogebra.org/calculator">GeoGebra</a></p>
-<hr />
+<h1 id="kawaiitb">KawaiiTB</h1>
 <p>联系我: mc-puffer@qq.com</p>
 <p><img alt="kawaiitb" src="../assets/t200/kawaiitb.png" /></p>
 </div>
