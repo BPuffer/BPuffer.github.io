@@ -55,7 +55,7 @@ a:hover {
   background-image: url('img/ul.png'), url('img/ur.png'), url('img/ll.png'), url('img/lr.png'), url('img/bg.png');
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat;
   background-position: left top, right top, left bottom, right bottom, center;
-  background-size: 100px 100px, 100px 100px, 100px 100px, 100px 100px, initial;
+  background-size: 100px 100px, 100px 100px, 100px 100px, 100px 100px, contain;
 }
 
 /* 新增：移动端适配 */
