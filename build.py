@@ -6,6 +6,7 @@ import markdown
 from markdown import Extension
 from markdown.inlinepatterns import InlineProcessor
 from markdown.preprocessors import Preprocessor
+from markdown.extensions.codehilite import CodeHiliteExtension
 
 
 html_model = """
@@ -18,6 +19,7 @@ html_model = """
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title}</title>
+    <link rel="stylesheet"href="https://cdn.jsdelivr.net/gh/richleland/pygments-css@master/fruity.css">
     <link rel="stylesheet" href="{style}">
     <link rel="icon" type="image/png" href="/favicon.png">
 </head>
@@ -156,11 +158,12 @@ def split_size_unit(size_str):
 
 extensions = [
     'markdown.extensions.tables',  # 表格
-    'markdown.extensions.codehilite',  # 代码高亮
     'markdown.extensions.fenced_code',  # 代码块
     'markdown.extensions.smarty',  # 杂项
     'markdown.extensions.toc',  # 目录
     LatexBlockExtension(),  # latex 支持
+    # 'markdown.extensions.codehilite',  # 代码高亮
+    CodeHiliteExtension(css_class='highlight'),  # 代码高亮
 ]
 
 style = "css/style_0.css"

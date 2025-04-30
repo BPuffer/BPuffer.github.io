@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>t200</title>
+    <link rel="stylesheet"href="https://cdn.jsdelivr.net/gh/richleland/pygments-css@master/fruity.css">
     <link rel="stylesheet" href="css/style_0.css">
     <link rel="icon" type="image/png" href="/favicon.png">
 </head>
@@ -85,8 +86,8 @@
 <h2 id="python">面向数学建模的Python学习路线</h2>
 <h3 id="1">1. 尽快提升熟练度</h3>
 <p>对于Python初学者，如果没有时间可以不学面向对象(就是类、继承那一堆乱七八糟的)，但内置数据类型的处理一定要熟练运用。比如这种技术上不难但实操起来十分吃<strong>熟练度</strong>的问题：</p>
-<h4 id="_4"><strong>将一个布尔值列表转换为时间区间格式</strong></h4>
-<div class="codehilite"><pre><span></span><code><span class="c1"># 输入</span>
+<h4 id="_4">将一个布尔值列表转换为时间区间格式</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># 输入</span>
 <span class="n">series</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
 <span class="c1"># 输出</span>
 <span class="k">assert</span> <span class="n">solve</span><span class="p">(</span><span class="n">series</span><span class="p">)</span> <span class="o">==</span> <span class="p">{</span>
@@ -111,7 +112,7 @@
 <p>最后让AI把我<strong>已经想好的逻辑</strong>以代码形式展现出来。</p>
 </blockquote>
 <p>比方说我希望进行PCA分析，首先我要写下面的代码</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># 我给AI的提示代码</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># 我给AI的提示代码</span>
 <span class="n">INPUT_FILE</span> <span class="o">=</span> <span class="s2">&quot;data.xlsx&quot;</span>
 <span class="n">X_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;IN1&quot;</span><span class="p">,</span><span class="s2">&quot;IN2&quot;</span><span class="p">,</span><span class="s2">&quot;IN3&quot;</span><span class="p">,</span><span class="s2">&quot;IN4&quot;</span><span class="p">,</span><span class="s2">&quot;IN5&quot;</span><span class="p">]</span>
 <span class="o">...</span>
@@ -120,7 +121,7 @@
 </code></pre></div>
 
 <p>然后再让AI续写一个PCA分析。这样可以省去很多麻烦事比如问你数据在哪又问你是什么格式需不需要去重、标准化……</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># AI生成的代码</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># AI生成的代码</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
