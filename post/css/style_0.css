@@ -52,10 +52,12 @@ a:hover {
 
   /* 四角显示img/ul,ur,ll,lr.png */
   /* 背景图显示img/bg.png */
-  background-image: url('img/ul.png'), url('img/ur.png'), url('img/ll.png'), url('img/lr.png'), url('img/bg.png');
-  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat;
-  background-position: left top, right top, left bottom, right bottom, center;
-  background-size: 100px 100px, 100px 100px, 100px 100px, 100px 100px, contain;
+  background:
+    url('img/ul.png') no-repeat left top / 100px 100px,
+    url('img/ur.png') no-repeat right top / 100px 100px,
+    url('img/ll.png') no-repeat left bottom / 100px 100px,
+    url('img/lr.png') no-repeat right bottom / 100px 100px,
+    url('img/bg.png') repeat center / contain;
 }
 
 /* 新增：移动端适配 */
@@ -72,12 +74,6 @@ a:hover {
     border-radius: 0;
     min-height: 100vh;
     padding: 30px 25px;
-    background-size: 
-      60px 60px,
-      60px 60px,
-      60px 60px,
-      60px 60px,
-      initial;
   }
 }
 
@@ -85,12 +81,6 @@ a:hover {
 @media (max-width: 480px) {
   .container {
     padding: 25px 20px;
-    background-size: 
-      40px 40px,
-      40px 40px,
-      40px 40px,
-      40px 40px,
-      initial;
   }
 }
 
@@ -121,6 +111,7 @@ h1 {
   padding-right: 1em;
   padding-bottom: 0.1em;
   text-align: center;
+  margin-bottom: 0;
 }
 
 h2 {
@@ -182,12 +173,17 @@ em {
 
 /* 引用块 */
 blockquote {
-  margin: 1.5em 0em 1em;
-  padding: 0.3em 1.5em;
-  color: #2c3e50;
-  background: #ecf0f1;
-  border-left: 5px solid #3498db;
-  font-style: italic;
+  margin: 1em 0.1em;
+  line-height: 1.8;
+  font-size: 1em;
+  padding: 0.6em 1.5em;
+  color: #898c8f;
+  background: #ecf0f17f;
+  border-left: 5px solid #b2b2bd;
+}
+
+blockquote p {
+  margin: 0;
 }
 
 /* 列表样式 */
@@ -314,4 +310,13 @@ hr {
     padding: 0px;
     display: block;
     margin: 20px auto;
+}
+
+/* Explicit meta-information */
+.e-meta {
+  font-size: 0.8em;
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #888;
+  text-align: right;
 }

@@ -8,6 +8,8 @@ from markdown.inlinepatterns import InlineProcessor
 from markdown.preprocessors import Preprocessor
 from markdown.extensions.codehilite import CodeHiliteExtension
 
+from bs4 import BeautifulSoup
+
 
 html_model = """
 <!DOCTYPE html>
@@ -168,6 +170,38 @@ extensions = [
 
 style = "css/style_0.css"
 
+
+def after_process(html, filepath=None):
+    import os
+    import datetime
+
+    # 处理A: 将.modified_time格式化，并为文档添加修改时间meta
+    if filepath:
+        mod_time = os.path.getmtime(filepath)
+        formatted_time = datetime.datetime.fromtimestamp(mod_time).strftime("%Y-%m-%d %H:%M:%S")
+    else:
+        formatted_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    soup = BeautifulSoup(html, 'html.parser')
+    time_meta = soup.new_tag('meta')
+    time_meta.attrs['name'] = 'modified_time'
+    time_meta.attrs['content'] = formatted_time
+    soup.head.append(time_meta)
+    for ele in soup.find_all(class_="modified_time"):
+        try:
+            original_text = ele.get_text()
+            ele.string = original_text.format(formatted_time)
+        except Exception as e:
+            e.__notes__ = [
+                f"标签: {ele}",
+                f"格式化时间: {formatted_time}",
+                "请检查标签定义是否正确。usage: ",
+                '<p class="modified_time e-meta">Last modified: {}</p>'
+            ]
+            raise e
+
+    return str(soup)
+
+
 if __name__ == '__main__':
     import glob
     files = './src/*.md'
@@ -181,5 +215,7 @@ if __name__ == '__main__':
             style=style,
             content=post
         )
+        html = after_process(html, md_file)
         with open(output.format(filename=md_file.split('\\')[-1].split('.')[0]), 'w', encoding='utf-8') as f:
             f.write(html)
+        print("已经处理了文件：", md_file.split('\\')[-1])
