@@ -12,7 +12,23 @@
 
 ###### 六级
 
-**粗体***斜体*<u>下划线</u>~~删除线~~`代码`$内联公式$==高亮==[超链接](http://www.baidu.com)<!--注释-->
+**粗体**
+
+*斜体*
+
+<u>下划线</u>
+
+~~删除线~~
+
+`代码`
+
+行内$\LaTeX$公式
+
+==高亮==
+
+[超链接](http://www.baidu.com)
+
+<!--看到此注释块说明渲染出错-->
 
 ## 块
 
@@ -39,7 +55,7 @@ result = sum(Math.fib(42))
 print(f"The answer is {result}")
 ```
 
-> 引用文本实例
+> 引用文本
 
 1. 项目1
     1. 项目1.1
@@ -54,15 +70,15 @@ print(f"The answer is {result}")
     - 无序2.1
     - 无序2.2
 
-水平分割线
+水平分割线vvv
 
 ------
 
-水平分割线
+水平分割线^^^
 $$
 \LaTeX \\ \int_{x_0^2}^{x^1_3}\sum_{i=0}^{x}\frac{1}{x^3+2}\mathtt{d}x, x\in\mathbb{R}
 $$
 
 ## 图片
 
-![miel_02](img/tsukimiya/miel_02.png)
+![miel_02](../assets/mdtest/miel_02.png)
