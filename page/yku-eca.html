@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>第二课堂分数结算表</title>
+
+    <link href="../post/css/style_0.css" rel="stylesheet" />
+    <link href="/css/excomponents.css" rel="stylesheet" />
+    <link href="./yku-eca/yku-eca.css" rel="stylesheet" />
+    <link href="/favicon.png" rel="icon" type="image/png" />
+    <script type="module" src="./yku-eca/index.js"></script>
+</head>
+
+<body>
+    <div class="container clear-container">
+        <h1>第二课堂分数结算工具</h1>
+        <p class="e-meta">本文作者: 深水の河豚 | mc-puffer@qq.com</p>
+        <p class="e-meta" style="color: red;">*非官方工具，请以校方认定成绩为准。</p>
+        <p>本工具使用成绩单制度：<a href="https://www.yku.edu.cn/jjglxy/info/1081/2843.htm">营口理工学院“第二课堂成绩单”制度 实施办法（试行）</a></p>
+    </div>
+
+    <style>
+    </style>
+    <div class="container clear-container">
+        <p> 您可以使用此窗口交互式添加成绩值，也可以直接在下面的窗口中添加项目</p>
+        <div id="interactive-window" class="centered-selections">
+            <div id="term-block" class="vertical-selections" style="width: 100%;">
+                <div class="term-title-container">
+                    <div class="term-title-box">
+                        <button id="term-prev" class="btn btn-2nd" style="rotate: 90deg;">▼</button>
+                        <div id="term-title" class="term-title"></div>
+                        <button id="term-next" class="btn btn-2nd" style="rotate: -90deg;">▼</button>
+                    </div>
+                </div>
+                <div class="term-description">
+                  <span id="term-source-text" style="font-weight: bold;">${termSource}</span><br>
+                  <div id="term-description-text"></div>
+                </div>
+                <div class="centered-selections term-name-input-container">
+                  <p id="term-name-label" class="form-label no-margin">输入项目名称：</p>
+                  <input id="term-name-input" type="text" class="form-input" placeholder="输入项目名称">
+                </div>
+                <div class="term-keys centered-selections"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container clear-container">
+        <h2>成绩：<span id="score-total"></span></h2>
+        <div style="
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        ">
+            <div class="centered-selections">
+                <p class="no-margin">手动添加规则：</p>
+                <input id="manual-add-name" class="form-input" placeholder="项目名称" />
+                <input id="manual-add-score" class="form-input" placeholder="项目成绩" />
+                <button id="manual-add-addbtn" class="btn btn-kanban">添加</button>
+            </div>
+            <label id="error-hint" style="color: red; display: flex; justify-content: center;"></label>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>项目</th>
+                    <th>成绩</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="scores-container">
+            </tbody>
+            <tfoot>
+                <tr id="no-scores">
+                    <td colspan="3">还没有成绩……</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+</body>
+
+</html>

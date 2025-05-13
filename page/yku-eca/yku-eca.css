@@ -1,0 +1,80 @@
+
+.term-title-container {
+    display: flex;
+    position: relative;
+    width: 100%;
+    margin-bottom: 0.5em;
+}
+
+#term-prev, #term-next {
+    position: absolute;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+#term-prev {
+    left: 0;
+    top: calc(50% - 1em);
+}
+
+#term-next {
+    right: 0;
+    top: calc(50% - 1em);
+}
+
+.term-title-box {
+    width: 100%;
+    text-align: center;
+    padding: 0 4em;
+    position: relative;
+}
+
+.term-title {
+    justify-self: center;
+    padding-left: 0.5em;
+    padding-right: calc(0.5em + 30px);
+    position: relative;
+
+    font-family: SrcHans-serif, serif;
+    font-size: 2em;
+    font-weight: 700;
+    color: #42211a;
+
+    border-bottom: 3px solid #42211a;
+    cursor: pointer;
+}
+
+/* 三角展开折叠 */
+.term-title::after {
+    content: "▼";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+
+    font-size: 0.8em;
+
+    transform: translateY(-50%);
+    transition: transform 0.3s ease-out;
+}
+
+.term-title.expanded::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.term-description {
+    overflow: hidden;
+    height: 0;
+    margin: 0.4em 0;
+    padding: 0 1em;
+
+    color: #653713;
+    background-color: #fdf2df7f;
+    border-radius: 12px;
+
+    transition: height 0.3s ease-out;
+}
+
+.term-description.expanded {
+    max-height: 500px;
+    transition: height 0.3s ease-out;
+}
